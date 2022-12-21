@@ -1,0 +1,206 @@
+<div class="container">
+    <div class="row g-5 row-cols-1 row-cols-md-3 py-3">      
+        <div class="col">
+            <div class="card shadow h-100 table-responsive">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Plazos vencidos</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                              <th class="text-center" class="text-center" scope="col">#</th>
+                              <th class="text-center" scope="col">Cliente</th>
+                              <th class="text-center" scope="col">Actividad</th>
+                              <th class="text-center" scope="col">Vencimiento</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Cliente 1</td>
+                              <td>MIA</td>
+                              <td>2022-12-03</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>Cliente 2</td>
+                              <td>COA</td>
+                              <td>2022-06-10</td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow h-100">
+                <div class="card-body table-responsive">
+                    <h5 class="card-title text-info">Plazos proximos a vencer</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                              <th class="text-center" class="text-center" scope="col">#</th>
+                              <th class="text-center" scope="col">Cliente</th>
+                              <th class="text-center" scope="col">Actividad</th>
+                              <th class="text-center" scope="col">Vencimiento</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Cliente 1</td>
+                              <td>ERA</td>
+                              <td>2022-12-22</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>Cliente 2</td>
+                              <td>IP</td>
+                              <td>2022-12-18</td>
+                            </tr>
+                          </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="paper w-100">
+                <div class="paper-content">
+                    <label class="notas-header">Notas</label>
+                    <textarea autofocus
+                              [(ngModel)]="notes"
+                              (input)="notesInput()"
+                    ></textarea>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-5 pb-3">
+      <!--  Carta con servicios activos -->
+      <div class="col-sm-12 col-md-8 h-100">
+        <div class="card shadow h-100">
+          <div class="card-body table-responsive">
+            <h5 class="card-title">Servicios activos</h5>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Servicio</th>
+                  <th scope="col">Responsable</th>
+                  <th scope="col">Estatus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Cliente A</td>
+                  <td>COA</td>
+                  <td>Personal 1</td>
+                  <td>Servicio contratado</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Cliente B</td>
+                  <td>MIA</td>
+                  <td>Personal 2</td>
+                  <td>Servicio En proceso de evaluación</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Cliente C</td>
+                  <td>Seguimiento</td>
+                  <td>Tu</td>
+                  <td>En proceso</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>Cliente D</td>
+                  <td>Registro como generador de RME</td>
+                  <td>Tu</td>
+                  <td>Finalizado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Carta para crear nuevo servicio -->
+      <div class="col h-100">
+        <div class="card shadow h-100">
+          <div class="card-body">
+            <h5 class="card-title">!!Crea algo nuevo¡¡</h5>
+            <p class="card-text">Da de alta clientes, servicios o lo que requieras para tu trabajo</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <button type="button"
+                        class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> 
+                </button>
+                 Nuevo cliente
+              </li>
+              <li class="list-group-item">
+                <button type="button"
+                        class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> 
+                </button>
+                 Nuevo servicio
+              </li>
+              <li class="list-group-item">
+                <button type="button"
+                        class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> 
+                </button>
+                 Nueva herramienta
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Novedades</h5>
+            <p class="card-text">Mira las ultimas noticias y novedades</p>
+
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Actualización al la ley nacional de aguas</h5>
+                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam doloremque debitis dolor mollitia ad, molestiae numquam fugiat qui, esse nobis quasi quod distinctio nam deleniti in dolorum eos ea rerum.</p>
+                <a href="#" class="btn btn-primary">Revisa mas información</a>
+              </div>
+            </div>
+
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Dias no laborables de SEMARNAT</h5>
+                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam doloremque debitis dolor mollitia ad, molestiae numquam fugiat qui, esse nobis quasi quod distinctio nam deleniti in dolorum eos ea rerum.</p>
+                <a href="#" class="btn btn-primary">Revisa mas información</a>
+              </div>
+            </div>
+
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Actualización de pago de derechos en material de aguas nacionales</h5>
+                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam doloremque debitis dolor mollitia ad, molestiae numquam fugiat qui, esse nobis quasi quod distinctio nam deleniti in dolorum eos ea rerum.</p>
+                <a href="#" class="btn btn-primary">Revisa mas información</a>
+              </div>
+            </div>            
+            <button type="button"
+                    class="btn btn-success w-100">
+              Ver todo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

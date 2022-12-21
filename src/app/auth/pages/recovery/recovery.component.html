@@ -1,0 +1,28 @@
+
+<h2 class="text-center mb-4">Restablece tu contraseña</h2>
+<form autocomplete="off" 
+      [formGroup]="loginForm">
+
+  <!-- Password input -->
+  <div class="form-floating mb-4">
+    <input type="password" 
+            class="form-control" 
+            id="password" 
+            placeholder="Contraseña"
+            formControlName="password"/>
+    <label for="password">Contraseña</label>
+  </div> 
+  
+  <!-- passwordConfirmation input -->
+  <div class="form-floating mb-4">
+      <input type="password" 
+              class="form-control" 
+              id="passwordConfirmation" 
+              placeholder="Confirmar contraseña"
+              formControlName="passwordConfirmation"/>
+      <label for="passwordConfirmation">Confirmar contraseña</label>
+    </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Reestablecer contraseña</button> 
+</form>

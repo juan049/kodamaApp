@@ -1,0 +1,71 @@
+
+<nav class="navbar bg-secondary px-3 shadow fixed-top sticky-top">
+    <div class="row w-100 ">
+      <!-- Boton -->
+      <!-- <div class="col">
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+            <i class="bi bi-list"></i>
+        </button>
+      </div> -->
+      
+      <!-- Nombre de la app -->
+      <div class="col text-center">
+        <button class="btn btn-dark float-start z-index-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+            <i class="bi bi-list"></i>
+        </button>
+        <a class="navbar-brand fw-bold text-light" href="#">{{appName}}</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mt-3">
+    <router-outlet></router-outlet>
+  </main>
+
+
+  <!-- Footer  -->
+  <footer class="d-flex flex-wrap justify-content-between align-items-center p-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+        <i class="bi bi-bootstrap"></i>
+      </a>
+      <span class="mb-3 mb-md-0 text-muted">{{appName}}© {{todayDate | date : 'y'}}</span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-twitter"></i></a></li>
+      <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-instagram"></i></a></li>
+      <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook"></i></a></li>
+    </ul>
+  </footer>
+
+
+  <!-- Of canvas -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasMenuLabel">{{appName}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <hr>
+    <div class="offcanvas-body p-0 h-100">
+      <div class="w-100 d-flex flex-column align-items-center mb-3">
+        <img src="./../../assets/user-img.png" 
+             alt="Imagen de perfil"
+             class="img-150 c-pointer">
+        <span class="fw-bold fs-3 mx-3 -rounded-circle">Nombre de usuario</span>           
+      </div>
+      <ul class="list-group">
+        <li *ngFor="let menuItem of menuItems" 
+            class="list-group-item hoverGray"
+            [routerLink]="menuItem.url"
+            routerLinkActive="active">
+            <i class="bi {{menuItem.icon}}"></i> {{menuItem.text}}
+        </li>
+      </ul>
+      <!-- Boton cerrar cesion -->
+      <button type="button"
+              class="btn btn-dark mt-3 w-100 position-absolute bottom-0 mb-3">
+        <i class="bi bi-box-arrow-left"></i> Cerrar sesión
+      </button>
+    </div>
+  </div>
