@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { environment } from './../../environments/environment';
 
 interface sideNavMenuItem {
   icon: string;
@@ -20,7 +21,7 @@ interface sideNavMenuItem {
   `]
 })
 export class MainAppComponent {
-  appName: string = 'KodamaApp'
+  appName: string = environment.appName;
   todayDate = new Date();
   
   menuItems: sideNavMenuItem[] = [
