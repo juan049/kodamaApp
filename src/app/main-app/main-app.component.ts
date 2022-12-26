@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../environments/environment';
 
 interface sideNavMenuItem {
@@ -20,9 +20,42 @@ interface sideNavMenuItem {
     }
   `]
 })
-export class MainAppComponent {
+export class MainAppComponent implements OnInit {
+
+  // Dark Mode
+  theme: string = '';
+  themeIcon: string = '';
+
+
+
   appName: string = environment.appName;
   todayDate = new Date();
+  user = JSON.parse(localStorage.getItem('user')!);
+  userFullName: string = this.user.name + ' ' + this.user.last_name;
+
+  ngOnInit(): void {
+      this.theme = localStorage.getItem('colorMode') || 'light'; 
+      if( this.theme ===  'light'){
+        this.themeIcon = 'bi-brightness-high-fill';
+      }else{
+        this.themeIcon = 'bi-moon-stars-fill';
+      }
+      
+      
+  }
+
+  changeTheme() {
+    const htmlTag = document.documentElement;
+   if (htmlTag.getAttribute('data-bs-theme') === 'light') {
+    htmlTag.setAttribute('data-bs-theme', 'dark' );
+    this.themeIcon = 'bi-moon-stars-fill';
+   }else{
+    htmlTag.setAttribute('data-bs-theme', 'light' );
+    this.themeIcon = 'bi-brightness-high-fill';
+   }
+    
+  }
+
   
   menuItems: sideNavMenuItem[] = [
     {

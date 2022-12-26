@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DirectoryService } from '../../services/directory.service';
 
 interface InternalMember {
   name: string;
@@ -42,7 +43,12 @@ interface Client {
     .grow:hover { transform: scale(1.1);  border: 3px solid green;}
   `]
 })
-export class DirectoryComponent {
+export class DirectoryComponent implements OnInit {
+
+  constructor( private directoryService: DirectoryService) {}
+  ngOnInit(): void {
+    this.directoryService.getUsers();
+  }
 
   coordinations: Coordination[] = [
     {
@@ -58,6 +64,9 @@ export class DirectoryComponent {
   ];
 
   clients: Client[] = this.clientFill();
+
+  
+
 
   internalMemberFill(): InternalMember[] {
     let members: InternalMember[] = [];

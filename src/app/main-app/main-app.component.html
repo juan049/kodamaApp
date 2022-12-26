@@ -1,24 +1,33 @@
 
 <nav class="navbar bg-secondary px-3 shadow fixed-top sticky-top">
     <div class="row w-100 ">
-      <!-- Boton -->
-      <!-- <div class="col">
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
-            <i class="bi bi-list"></i>
-        </button>
-      </div> -->
       
       <!-- Nombre de la app -->
       <div class="col text-center">
         <button class="btn btn-dark float-start z-index-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
             <i class="bi bi-list"></i>
         </button>
+
+        <button #themeButton
+                type="button"
+                class="btn btn-dark float-start z-index-3 mx-2"
+                (click)="changeTheme()">
+          <i class="bi {{themeIcon}}"></i>
+      </button>
+
+
+
+        
+
+
+
         <a class="navbar-brand fw-bold text-light" href="#">{{appName}}</a>
       </div>
     </div>
   </nav>
 
   <main class="container mt-3">
+
     <router-outlet></router-outlet>
   </main>
 
@@ -52,7 +61,7 @@
         <img src="./../../assets/user-img.png" 
              alt="Imagen de perfil"
              class="img-150 c-pointer">
-        <span class="fw-bold fs-3 mx-3 -rounded-circle">Nombre de usuario</span>           
+        <span class="fw-bold fs-3 mx-3 -rounded-circle">{{userFullName | titlecase}}</span>           
       </div>
       <ul class="list-group">
         <li *ngFor="let menuItem of menuItems" 

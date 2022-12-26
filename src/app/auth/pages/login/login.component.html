@@ -1,6 +1,7 @@
 <h2 class="text-center mb-3">Inicia sesión</h2>
 <form autocomplete="off" 
-      [formGroup]="loginForm">
+      [formGroup]="loginForm"
+      (ngSubmit)="login()">
 
   <!-- Email input -->
   <div class="form-floating mb-4">
@@ -33,5 +34,18 @@
   </div>
 
   <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button> 
+  <button type="submit" 
+          class="btn btn-primary btn-lg btn-block"
+          [disabled]="loginForm.invalid">
+    Iniciar sesión
+  </button> 
 </form>
+
+<pre>
+  {{loginForm.valid}}
+</pre>
+
+<pre>
+  {{loginForm.value | json}}
+</pre>
+
