@@ -1,4 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../auth/interfaces/auth.interface';
+import { AuthService } from '../auth/services/auth.service';
 import { environment } from './../../environments/environment';
 
 interface sideNavMenuItem {
@@ -21,42 +24,18 @@ interface sideNavMenuItem {
   `]
 })
 export class MainAppComponent implements OnInit {
+  
+  //Nombre de la app
+  appName: string = environment.appName;
+  
+  //Fecha actual
+  todayDate = new Date();
 
   // Dark Mode
   theme: string = '';
   themeIcon: string = '';
 
-
-
-  appName: string = environment.appName;
-  todayDate = new Date();
-  user = JSON.parse(localStorage.getItem('user')!);
-  userFullName: string = this.user.name + ' ' + this.user.last_name;
-
-  ngOnInit(): void {
-      this.theme = localStorage.getItem('colorMode') || 'light'; 
-      if( this.theme ===  'light'){
-        this.themeIcon = 'bi-brightness-high-fill';
-      }else{
-        this.themeIcon = 'bi-moon-stars-fill';
-      }
-      
-      
-  }
-
-  changeTheme() {
-    const htmlTag = document.documentElement;
-   if (htmlTag.getAttribute('data-bs-theme') === 'light') {
-    htmlTag.setAttribute('data-bs-theme', 'dark' );
-    this.themeIcon = 'bi-moon-stars-fill';
-   }else{
-    htmlTag.setAttribute('data-bs-theme', 'light' );
-    this.themeIcon = 'bi-brightness-high-fill';
-   }
-    
-  }
-
-  
+  //Items del menú
   menuItems: sideNavMenuItem[] = [
     {
       icon: 'bi-house-door',
@@ -93,7 +72,44 @@ export class MainAppComponent implements OnInit {
       text: 'Configuración',
       url: 'app-config'
     },
-
-    
   ]
+
+  //Datos del usuario
+  get user(): User {
+    return this.authService.user;
+  }
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  //Inicializar el modo oscuro
+  ngOnInit(): void {
+      this.theme = localStorage.getItem('colorMode') || 'light'; 
+      if( this.theme ===  'light'){
+        this.themeIcon = 'bi-brightness-high-fill';
+      }else{
+        this.themeIcon = 'bi-moon-stars-fill';
+      }
+  }
+
+  //Cambiar el tema de oscuro y claro
+  changeTheme(): void {
+    const htmlTag = document.documentElement;
+   if (htmlTag.getAttribute('data-bs-theme') === 'light') {
+    htmlTag.setAttribute('data-bs-theme', 'dark' );
+    this.themeIcon = 'bi-moon-stars-fill';
+   }else{
+    htmlTag.setAttribute('data-bs-theme', 'light' );
+    this.themeIcon = 'bi-brightness-high-fill';
+   }
+    
+  }
+  
+  //Cerrae sesión
+  logout(): void {
+    this.authService.logout();
+    this.router.navigateByUrl('/auth');
+  }
 }

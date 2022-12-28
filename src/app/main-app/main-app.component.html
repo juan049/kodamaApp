@@ -58,10 +58,10 @@
     <hr>
     <div class="offcanvas-body p-0 h-100">
       <div class="w-100 d-flex flex-column align-items-center mb-3">
-        <img src="./../../assets/user-img.png" 
+        <img src="{{ user.profile_image || './../../assets/user-img.png'}}" 
              alt="Imagen de perfil"
              class="img-150 c-pointer">
-        <span class="fw-bold fs-3 mx-3 -rounded-circle">{{userFullName | titlecase}}</span>           
+        <span class="fw-bold fs-3 mx-3 -rounded-circle">{{user.name + ' ' + user.last_name| titlecase}}</span>
       </div>
       <ul class="list-group">
         <li *ngFor="let menuItem of menuItems" 
@@ -73,7 +73,8 @@
       </ul>
       <!-- Boton cerrar cesion -->
       <button type="button"
-              class="btn btn-dark mt-3 w-100 position-absolute bottom-0 mb-3">
+              class="btn btn-dark mt-3 w-100 position-absolute bottom-0 mb-3"
+              (click)="logout()">
         <i class="bi bi-box-arrow-left"></i> Cerrar sesión
       </button>
     </div>

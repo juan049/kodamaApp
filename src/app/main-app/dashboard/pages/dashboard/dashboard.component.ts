@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { User } from 'src/app/auth/interfaces/auth.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +13,15 @@ export class DashboardComponent  implements OnInit{
 
   debouncer: Subject<string> = new Subject();
 
-  notes: string = 'Pon tus notas aquí';
+  notes: string = this.user.notes || 'Pon tus notas aquí';
+
+  get user(): User {
+    return this.authService.user;
+  }
+
+  constructor(
+    private authService: AuthService
+  ){}
 
   ngOnInit(): void {
     this.debouncer
@@ -23,7 +33,7 @@ export class DashboardComponent  implements OnInit{
   }
 
   notesInput() {
-    this.debouncer.next( this.notes);
+    this.debouncer.next(this.notes);
   }
 
 }

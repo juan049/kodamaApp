@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
+
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -17,6 +21,7 @@ export class LoginComponent {
 
   constructor ( 
     private fb: FormBuilder,
+    private router: Router, 
     private authService: AuthService
   ) {}
 
@@ -24,11 +29,17 @@ export class LoginComponent {
     return this.loginForm?.valid;
   }
 
-  login(): void {
-     this.authService.login(
-      this.loginForm.value['email'],
-      this.loginForm.value['password']
-    );
+  login() {
+     this.authService.login( this.loginForm.value['email'], this.loginForm.value['password'] )
+      .subscribe(ok => {
+        if ( ok === true ) {
+          this.router.navigateByUrl('/app');
+        }else{
+          console.log(ok);
+          Swal.fire('Error', ok, 'error');
+        }
+      });
   }
+
 
 }
