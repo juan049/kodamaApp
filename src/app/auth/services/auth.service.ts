@@ -6,9 +6,7 @@ import { of, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from './../../../environments/environment'
-import { AuthResponse } from '../interfaces/auth.interface';
-
-import { User } from './../interfaces/auth.interface';
+import { AuthResponse, User } from '../interfaces/auth.interface';
 
 
 @Injectable({
@@ -19,32 +17,28 @@ export class AuthService {
   private _baseUrl: string = environment.backendApiURL;
   private _user!: User;
 
-  get user(): User{
+  get user(): User {
     return {...this._user};
   }
 
   constructor( 
-    private http: HttpClient,
-    private router: Router,
+    private http: HttpClient
   ) { }
 
 
   login( email: String, password: String) {
     const url = this._baseUrl + '/login';
-    
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     });
 
-    const options = { headers: headers };
-
     const body = { email, password };
     
-    return this.http.post<AuthResponse>(url, body, options)
+    return this.http.post<AuthResponse>(url, body, { headers })
       .pipe(
         tap( resp => {
-          console.log(resp);
           if ( resp.ok ) {
             localStorage.setItem('token', resp.access_token! );
           }
@@ -55,14 +49,12 @@ export class AuthService {
   }
 
   validateToken(): Observable<boolean> {
-
     const url = this._baseUrl + '/renew';
-
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}` || '' 
-    });
+    }); 
 
     return this.http.get<AuthResponse>( url, { headers } )
         .pipe(
@@ -78,7 +70,7 @@ export class AuthService {
   logout() {
     const url = this._baseUrl + '/logout';
 
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}` || '' 
@@ -88,4 +80,21 @@ export class AuthService {
     localStorage.clear();
   }
 
+  recovery(email: string): Observable<boolean>{
+    const url = this._baseUrl + '/recovery-password';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
+    
+    const body = { email };
+
+    return this.http.post<AuthResponse>( url, body, { headers } )
+      .pipe(
+        map( resp => {
+          return resp.ok;
+        }),
+        catchError( err => of(false) )
+      );
+  }
 }

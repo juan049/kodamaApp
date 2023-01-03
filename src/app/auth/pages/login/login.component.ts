@@ -13,11 +13,35 @@ import { AuthService } from '../../services/auth.service';
   ]
 })
 export class LoginComponent {
+  emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
   loginForm: FormGroup = this.fb.group({
-    email: ['email@email.com', [Validators.required, Validators.email] ],
-    password: ['12345678', [Validators.required, Validators.min(10)] ]
+    email: ['', [Validators.required, Validators.pattern(this.emailPattern)] ],
+    password: ['', [Validators.required, Validators.minLength(10)] ]
    });
+
+   get emailErrorMsg(): string {
+     const errors = this.loginForm.get('email')?.errors;
+     if(errors?.['required']) {
+      return 'El email es obligatorio';
+     }else if(errors?.['pattern']){
+      return 'El formato de email no es valido';
+     }
+     return '';
+   }
+
+   get passwordErrorMsg(): string {
+    const errors = this.loginForm.get('password')?.errors;
+    if(errors?.['required']) {
+     return 'El password es obligatorio';
+    }else if(errors?.['minlength']){
+     return 'El password requiere por lo menos de 10 caracteres';
+    }
+    return '';
+  }
+
+
+
 
   constructor ( 
     private fb: FormBuilder,
@@ -25,21 +49,27 @@ export class LoginComponent {
     private authService: AuthService
   ) {}
 
-  validForm(): boolean {
-    return this.loginForm?.valid;
+  noValidField(field: string){
+    return this.loginForm.get(field)?.invalid
+      && this.loginForm.get(field)?.touched;
   }
 
   login() {
-     this.authService.login( this.loginForm.value['email'], this.loginForm.value['password'] )
+    // Marco como touched
+    this.loginForm.markAllAsTouched();
+    if( this.loginForm?.valid){ 
+      this.authService.login( this.loginForm.value['email'], this.loginForm.value['password'] )
       .subscribe(ok => {
         if ( ok === true ) {
           this.router.navigateByUrl('/app');
         }else{
-          console.log(ok);
-          Swal.fire('Error', ok, 'error');
-        }
-      });
-  }
-
-
+          Swal.fire(
+            'Error', 
+            `Error: ${ok}, Por favor contacta con soporte técnico`, 
+            'error'
+            );
+          }
+        });
+      }
+    }
 }

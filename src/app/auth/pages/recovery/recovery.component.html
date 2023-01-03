@@ -1,28 +1,33 @@
 
 <h2 class="text-center mb-4">Restablece tu contraseña</h2>
-<form autocomplete="off" 
-      [formGroup]="loginForm">
+<form autocomplete="off"
+      [formGroup]="recoverForm"
+      (ngSubmit)="recover()"
+      class="mb-3">
+  
+  <div>
+    <p>Escribe tu email y te enviaremos un correo con instrucciones para reestablecerlo</p>
+  </div>
 
   <!-- Password input -->
   <div class="form-floating mb-4">
-    <input type="password" 
+    <input type="email" 
             class="form-control" 
-            id="password" 
-            placeholder="Contraseña"
-            formControlName="password"/>
-    <label for="password">Contraseña</label>
+            id="email" 
+            placeholder="Email"
+            formControlName="email"/>
+    <label for="email">Email</label>
+    <div>
+      <span *ngIf="noValidField('email')" 
+            class="form-text text-danger">
+        {{emailErrorMsg}}
+      </span>
+    </div> 
   </div> 
-  
-  <!-- passwordConfirmation input -->
-  <div class="form-floating mb-4">
-      <input type="password" 
-              class="form-control" 
-              id="passwordConfirmation" 
-              placeholder="Confirmar contraseña"
-              formControlName="passwordConfirmation"/>
-      <label for="passwordConfirmation">Confirmar contraseña</label>
-    </div>
 
   <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-lg btn-block">Reestablecer contraseña</button> 
+  <button type="submit" 
+          class="btn btn-primary btn-lg btn-block">
+    Reestablecer contraseña
+  </button> 
 </form>
