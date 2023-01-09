@@ -1,8 +1,9 @@
 export interface AuthResponse {
     ok           : boolean;
     data?        : User;
+    message?     : String;
+    error?       : any;
     access_token?: string;
-    token_type?  : string;
 }
 
 export interface User {

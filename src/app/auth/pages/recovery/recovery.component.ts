@@ -45,9 +45,18 @@ export class RecoveryComponent {
       this.authService.recovery(this.recoverForm.get('email')?.value)
         .subscribe(ok => {
           if(ok){
-            this.router.navigateByUrl('/auth/   |login');
+            Swal.fire(
+              'Email de recuperación enviado', 
+              `Se envió un email de recuperación a la dirección ${this.recoverForm.get('email')?.value}`, 
+              'success'
+            );
+            this.router.navigateByUrl('/login')
           }else{
-            Swal.fire('Error', 'No se pudo completar la acción', 'error');
+            Swal.fire(
+              'Error', 
+              'No se pudo completar la acción', 
+              'error'
+            );
           }
         });
     }
